@@ -1,3 +1,5 @@
+from random import randint
+
 arr = ['1','2','3','4','5','6','7','8','9']
 def board():
     for i in range(8,-1,-1):
@@ -47,13 +49,24 @@ player = 0
 sign = None
 win = False
 
+signs = ['X', 'O']
+index = randint(0,1)
+sign1 = signs[index]
+if index == 0:
+    sign2 =  signs[1]
+else:
+    sign2 = signs[0]
+
+print("Player 1 has been assigned " + sign1 )
+print("Player 2 has been assigned " + sign2 + "\n")
+
 while( gameOn):
     if(turn%2 ==0):
         player = 2
-        sign = 'O'
+        sign = sign2
     else:
         player = 1
-        sign = 'X'
+        sign = sign1
 
     get = int(input("player " + str(player) + " : "))
     

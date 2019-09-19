@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+import random
 
 def getTokens(input):
 	tokensBySlash = str(input.encode('utf-8')).split('/')	#get tokens after splitting by slash
@@ -12,9 +15,9 @@ def getTokens(input):
 	allTokens = list(set(allTokens))	#remove redundant tokens
 	if 'com' in allTokens:
 		allTokens.remove('com')	#removing .com since it occurs a lot of times and it should not be included in our features
-return allTokens
+	return allTokens
 
-allurls = 'C:\\Users\\Faizan Ahmad\\Desktop\\Url Classification Project\\Data to Use\\allurls.txt'	#path to our all urls file
+allurls = 'allurls.txt'	#path to our all urls file
 allurlscsv = pd.read_csv(allurls,',',error_bad_lines=False)	#reading file
 allurlsdata = pd.DataFrame(allurlscsv)	#converting to a dataframe
 
@@ -35,5 +38,5 @@ print(lgs.score(X_test, y_test)) #pring the score. It comes out to be 98%
 X_predict = ['wikipedia.com','google.com/search=faizanahad','pakistanifacebookforever.com/getpassword.php/','www.radsport-voggel.de/wp-admin/includes/log.exe','ahrenhei.without-transfer.ru/nethost.exe','www.itidea.it/centroesteticosothys/img/_notes/gum.exe']
 X_predict = vectorizer.transform(X_predict)
 y_Predict = lgs.predict(X_predict)
-print y_Predict #printing predicted values
+print(y_Predict) #printing predicted values
 

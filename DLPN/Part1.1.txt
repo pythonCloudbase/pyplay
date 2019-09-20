@@ -1,0 +1,2 @@
+1. Artificial intelligence also includes fields where machine is percieved to be intelligent, even a pattern matching algorithm would do. 
+2. Machine learning  on the other does something thats not explicitly, coded. a subset of AI.

@@ -1,13 +1,7 @@
-''' # my solution
-get = input("Enter a number: ")
-dict ={}
+get = input("Enter values seperated by a comma: ")
 
-for i in range(1,int(get)+1):
-    dict[i] = i*i
+List =get.split(',')
+Tuple = tuple(List)
 
-print(dict)
-
-'''
-
-            
-    
+print(List)
+print(Tuple)

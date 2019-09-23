@@ -1,7 +1,16 @@
-get = input("Enter values seperated by a comma: ")
+class Stringer(object):
+    def __init__self(self):
+        self.s = ""
+    
+    def getInput(self):
+        self.s = input("Enter string: ")
+    
+    def putOutput(self):
+        print("Your string was: ",self.s)
 
-List =get.split(',')
-Tuple = tuple(List)
+strg = Stringer()
 
-print(List)
-print(Tuple)
+strg.getInput()
+strg.putOutput()
+
+    

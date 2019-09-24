@@ -59,3 +59,51 @@ strg = Stringer()
 strg.getInput()
 strg.putOutput()
 
+6.
+
+import math
+
+D = input("Enter D in formula 'Q = Square root of [(2 * C * D)/H]' : ").split(',')
+
+C, H = 50,30
+print("C is {} and H is {}".format(str(C),str(H) ))
+
+Q = []
+for i in D:
+    q = (2 * C * int(i))/ H
+    Q.append(str(math.floor(pow(q,0.5))))
+print(",".join(Q))
+
+7.
+
+X = int(input("Enter X : "))
+Y = int(input("Enter Y : "))
+
+iarr = []
+for i in range (0, X):
+    jarr = []
+    for j in range (0, Y):
+        jarr.append( i * j )
+    iarr.append(jarr)
+
+print(iarr)
+
+suggested:
+
+get = input("Enter input: ").split(',')
+
+X = int(get[0])
+Y = int(get[1])
+
+# multiList = [[0 for j in range(Y)] for i in range(X)]
+
+print(multiList)
+
+for i in range(X):
+    for j in range(Y):
+        multiList[i][j] = i*j
+
+print(multiList)
+
+
+

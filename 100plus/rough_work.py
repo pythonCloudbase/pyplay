@@ -1,16 +1,14 @@
-class Stringer(object):
-    def __init__self(self):
-        self.s = ""
-    
-    def getInput(self):
-        self.s = input("Enter string: ")
-    
-    def putOutput(self):
-        print("Your string was: ",self.s)
+get = input("Enter input: ").split(',')
 
-strg = Stringer()
+X = int(get[0])
+Y = int(get[1])
 
-strg.getInput()
-strg.putOutput()
+# multiList = [[0 for j in range(Y)] for i in range(X)]
 
-    
+print(multiList)
+
+for i in range(X):
+    for j in range(Y):
+        multiList[i][j] = i*j
+
+print(multiList)

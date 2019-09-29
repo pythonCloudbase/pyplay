@@ -105,5 +105,41 @@ for i in range(X):
 
 print(multiList)
 
+8.
+
+# wrong
+
+get = input("input words: ").split(',')
+
+print(get)
+
+wordValue = []
+
+for i in range (0,len(get)):
+    min = i
+    for j in range(0,len(get)):
+        for k in range(0,len(get[min])):
+            if(ord(get[min][k]) > ord(get[j][k])):
+                print(k)
+                min = j
+                break
+        
+        print("executed")
+        temp = get[i]
+        get[i] = get[min]
+        get[min] =temp
+    
+    
+
+print(",".join(get))
+
+# right
+
+get = input("Enter the words: ").split(",")
+
+get.sort()
+
+print(",".join(get))
+
 
 

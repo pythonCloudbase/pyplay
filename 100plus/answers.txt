@@ -133,13 +133,37 @@ for i in range (0,len(get)):
 
 print(",".join(get))
 
-# right
+# right   
 
 get = input("Enter the words: ").split(",")
 
 get.sort()
 
 print(",".join(get))
+
+9.
+
+import sys
+print("Enter lines : ")
+userInput = sys.stdin.readlines()
+
+#print(userInput)
+
+oline = ""
+
+for word in userInput:
+    oword = ""
+    for char in word:
+        #print("char: ", char)
+
+        if(ord(char) in range(97,123) ):
+            char  = chr(ord(char)-32)
+            #print("char changes: ", chr(ord(char) -32))
+            
+        oword += char
+    oline += oword 
+
+print(oline)
 
 
 

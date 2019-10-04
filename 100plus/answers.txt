@@ -165,5 +165,42 @@ for word in userInput:
 
 print(oline)
 
+10.
+
+# without using sorted
+
+get  =  input ("Enter your words seperated by space : ").split(" ")
+
+get = list(set(get))
+
+scoreList = {}
+index = 0
+
+for word in get:
+    
+    score = 0
+    index_score = 10000000000
+    
+    for ch in word:
+        score += index_score * ord(ch)
+        index_score /= 10
+    
+    scoreList[word] = [score, index]
+    index += 1
+
+import operator 
+
+sorted_list = sorted(scoreList.items(), key= operator.itemgetter(0))
+
+for i in sorted_list:
+    print(i[0], end=" ")
+
+
+# suggested answer
+
+print(" ".join(sorted(list(set(input ("Enter you input : ").split(" "))))))
+    
+
+
 
 

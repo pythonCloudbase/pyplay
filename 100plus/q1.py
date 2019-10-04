@@ -1,24 +1,3 @@
-import sys
-print("Enter lines : ")
-userInput = sys.stdin.readlines()
+#get = input ("Enter you input : ").split(" ")
 
-#print(userInput)
-
-oline = ""
-
-for word in userInput:
-    oword = ""
-    for char in word:
-        #print("char: ", char)
-
-        if(ord(char) in range(97,123) ):
-            char  = chr(ord(char)-32)
-            #print("char changes: ", chr(ord(char) -32))
-            
-        oword += char
-    oline += oword 
-
-print(oline)
-
-
-#print(ord('a') - ord('A')) --32
+print(" ".join(sorted(list(set(input ("Enter you input : ").split(" "))))))

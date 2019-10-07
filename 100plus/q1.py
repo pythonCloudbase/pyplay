@@ -1,3 +1,8 @@
-#get = input ("Enter you input : ").split(" ")
+get = input("Enter  number sequence: ").split(',')
 
-print(" ".join(sorted(list(set(input ("Enter you input : ").split(" "))))))
+out = []
+for i in get:
+    if(int(i)%5 == 0):
+        out.append(i)
+
+print(",".join(out))

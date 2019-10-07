@@ -199,6 +199,18 @@ for i in sorted_list:
 # suggested answer
 
 print(" ".join(sorted(list(set(input ("Enter you input : ").split(" "))))))
+
+11.
+
+get = input("Enter  number sequence: ").split(',')
+
+out = []
+for i in get:
+    if(int(i)%5 == 0):
+        out.append(i)
+
+print(",".join(out))
+
     
 
 

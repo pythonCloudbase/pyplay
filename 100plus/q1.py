@@ -1,15 +1,21 @@
-import math
-iter = []
-for i in range (1000,30001):
-    c = i
-    flag = True
-    while(c>1):
-        if((c%10)%2 != 0):
-            flag = False
-        c = math.floor(c/10)
-        
+get = input("Enter the phrase :")
+#print(get)
 
-    if(flag):
-        iter.append(str(i))
+letters = 0
+numbers = 0
 
-print(",".join(iter))
+for i in get:
+
+    # if (i in (range(ord('a'), ord('z')) or range(ord('A'), ord():
+    #     letter += 1
+    # elif(i in range(0,10)):
+    #     numbers += 1
+
+    #print(i)
+    if(i.isalpha()):
+        letters += 1
+    elif(i.isnumeric()):
+        numbers += 1
+
+print("LETTERS ", letters)
+#("NUMBERS ", numbers)

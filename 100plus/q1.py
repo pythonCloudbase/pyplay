@@ -1,3 +1,6 @@
-get = int(input("Enter a number : "))
+get = input("Enter the number list: ").split(',')
 
-print(get + get * 10 + get + get * 100 + get * 10 + get + get * 1000 + get * 100 + get * 10 + get)
+out = [str(int(x)*int(x)) for x in get if (int(x)%2 != 0)]
+
+print(",".join(out))
+

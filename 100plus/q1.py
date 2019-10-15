@@ -1,6 +1,16 @@
-get = input("Enter the number list: ").split(',')
+import sys
 
-out = [str(int(x)*int(x)) for x in get if (int(x)%2 != 0)]
+get = sys.stdin.readlines()
 
-print(",".join(out))
+money = 0
 
+for i in range(len(get)):
+    tokens = get[i].split()
+    if (tokens[0] == 'd'):
+        money += int(tokens[1])
+    elif (tokens[0] == 'w'):
+        money -= int(tokens[1])
+    else :
+        print("improper format given", " ".join(get[i]))
+
+print(money)

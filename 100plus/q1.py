@@ -1,16 +1,19 @@
-import sys
+get = input("Enter the passwords: ").split(',')
 
-get = sys.stdin.readlines()
+goodpass = []
+for i in get :
+    passed = 0
+    if (len(i) > 5 & len(i) < 13):
+        for j in i:
+            if(j.isupper()):
+                passed += 1
+            if(j.islower()):
+                passed += 1
+            if(j.isnumeric()):
+                passed += 1
+            if(j in ['$','#','@']):
+                passed += 1
+    if(passed > 3):
+        goodpass.append(i)
 
-money = 0
-
-for i in range(len(get)):
-    tokens = get[i].split()
-    if (tokens[0] == 'd'):
-        money += int(tokens[1])
-    elif (tokens[0] == 'w'):
-        money -= int(tokens[1])
-    else :
-        print("improper format given", " ".join(get[i]))
-
-print(money)
+print(",".join(goodpass))

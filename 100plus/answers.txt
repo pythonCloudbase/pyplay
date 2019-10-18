@@ -367,7 +367,13 @@ for i in range(len(sortScoreList)):
 for i in sortIndex:
     print((get[i].strip()))
 
+20.
 
+get = input("Input range : ").split(',')
+
+for i in range(int(get[0]), int(get[1])):
+    if(i%7 == 0):
+        print(i)
 
 
 

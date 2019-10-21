@@ -1,14 +1,4 @@
-get = input("Enter the sentence : ").split(" ")
-unique = list(set(get))
-unique.sort()
+def square(number):
+    return number ** 2
 
-diction = {}
-
-for i in unique :
-    diction[i] = 0
-
-for j in get:
-    diction[j] += 1
-
-for z in diction.keys():
-    print(z, ':', diction[z])
+print(square(int(input("Enter a number : " ))))

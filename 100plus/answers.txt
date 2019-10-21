@@ -420,6 +420,12 @@ for j in get:
 for z in diction.keys():
     print(z, ':', diction[z])
 
+23.
+
+def square(number):
+    return number ** 2
+
+print(square(int(input("Enter a number : " ))))
 
 
 

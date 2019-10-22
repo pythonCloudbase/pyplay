@@ -1,4 +1,3 @@
-def square(number):
-    return number ** 2
-
-print(square(int(input("Enter a number : " ))))
+print(abs.__doc__)
+print(int.__doc__)
+print("YOLO")

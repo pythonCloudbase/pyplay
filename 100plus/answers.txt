@@ -427,6 +427,12 @@ def square(number):
 
 print(square(int(input("Enter a number : " ))))
 
+24.
+
+print(abs.__doc__)
+print(int.__doc__)
+print("YOLO")
+
 
 
 

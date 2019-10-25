@@ -1,3 +1,9 @@
-print(abs.__doc__)
-print(int.__doc__)
-print("YOLO")
+class Person:
+    name = "unassigned"
+    def __init__(self, name):
+        name = name
+        self.name = "Aprisyta"
+
+
+jeff = Person("jeff")
+print(jeff.name, Person.name)

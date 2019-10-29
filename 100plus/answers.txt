@@ -445,6 +445,84 @@ class Person:
 jeff = Person("jeff")
 print(jeff.name, Person.name)
 
+26.
+
+def SumFunction(number1, number2):
+	return number1+number2
+
+print SumFunction(1,2)
+
+27.
+
+def printValue(n):
+	print str(n)
+
+printValue(3)
+	
+28.
+
+def printValue(n):
+	print str(n)
+
+printValue(3)
+
+29.
+
+def printValue(s1,s2):
+	print int(s1)+int(s2)
+
+printValue("3","4") #7
+
+30.
+
+def printValue(s1,s2):
+	print s1+s2
+
+printValue("3","4") #34
+
+31.
+
+def printValue(s1,s2):
+	len1 = len(s1)
+	len2 = len(s2)
+	if len1>len2:
+		print s1
+	elif len2>len1:
+		print s2
+	else:
+		print s1
+		print s2
+		
+
+printValue("one","three")
+
+32.
+
+def checkValue(n):
+	if n%2 == 0:
+		print "It is an even number"
+	else:
+		print "It is an odd number"
+		
+
+checkValue(7)
+
+33.
+
+def printDict():
+	d=dict()
+	d[1]=1
+	d[2]=2**2
+	d[3]=3**2
+	print d
+		
+
+printDict()
+
+34.
+
+
+
 
 
     

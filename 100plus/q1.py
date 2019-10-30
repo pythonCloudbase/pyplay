@@ -1,9 +1,6 @@
-class Person:
-    name = "unassigned"
-    def __init__(self, name):
-        name = name
-        self.name = "Aprisyta"
+tp = (1,2,3,4,5,6,7,8,9,10)
 
-
-jeff = Person("jeff")
-print(jeff.name, Person.name)
+for i in tp[:5]:
+    print(i, end="")
+for i in tp[5:]:
+    print(i,end="")

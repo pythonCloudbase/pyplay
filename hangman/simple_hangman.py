@@ -20,6 +20,11 @@ max_attempts = 5
 
 guess_count = 0
 
+print("")
+print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+print("Pokemon Original starters game !")
+print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+print("")
 
 while(gameOn):
     print("".join(guess_array))
@@ -35,6 +40,7 @@ while(gameOn):
         #guess_array[guess_word.index(current_guess)] = current_guess
         if (list(guess_word) == guess_array) :
             print("You have won!")
+            print("The answer is ", guess_word)
             gameOn = False
     else :
         print(" That character is not in the answer.")

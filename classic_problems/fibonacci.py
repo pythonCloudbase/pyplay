@@ -3,5 +3,6 @@ def fib(n):
         return 1
     return fib(n-1) + fib(n-2)
 
-get = input("Enter: ")
-print(fib(int(get)))
+if __name__ == "__main__":
+    get = input("Enter: ")
+    print(fib(int(get)))

@@ -23,7 +23,7 @@ class CompressedGene:
 
     def decompress(self):
         gene = ""
-        for i in range(0, self.bit_string.length() - 1, 2):
+        for i in range(0, self.bit_string.bit_length() - 1, 2):
             bits = self.bit_string >> i & 0b11
             if bits == 0b00:
                 gene += "A"
@@ -45,8 +45,11 @@ class CompressedGene:
 if __name__ == "__main__":
     from sys import getsizeof
     stringg = "TATATATGCTTATGCTACGCTACTAGCGATCGATCAGCTAGCTAGCTGATAGTCAGCATGCATCGCTAGTG" * 100
+    # print("original string: ")
+    # print(stringg)
     print("original size: ",getsizeof(stringg))
     compressedGene = CompressedGene(stringg)
-    print(compressedGene)
+    # print("decompressed: ")
+    # print(compressedGene)
     print("compressed size: ", getsizeof(compressedGene))
     

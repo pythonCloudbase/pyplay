@@ -1,6 +1,7 @@
 import random
 
 VOWELS = ['a','e','i','o','u']
+FORES = ['s', 'h', 'x', 'z' , 'o']
 
 verbfile = open("dictionary/verbs.txt")
 VERB = []
@@ -46,8 +47,11 @@ def createSentence():
         sentence.append(random.choice(ADVERB))
 
     # code for getting verb
-
-    sentence.append(random.choice(VERB)+ "s")
+    verb = random.choice(VERB)
+    if(verb[-1] in FORES):
+        sentence.append(verb + "es")
+    else:   
+        sentence.append(verb + "s")
 
     if(random.random()< 0.8):
         sentence.append(random.choice(PREPOSITIONS))

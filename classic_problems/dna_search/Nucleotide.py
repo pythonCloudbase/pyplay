@@ -3,11 +3,15 @@ from typing import Tuple, List
 
 Nucleotide = IntEnum('Nucleotide', ('A','C','G','T'))
 
+
 # we are using IntEnum so that we can use >,<,=
 # A tuple pf 3 nucleotides is kknown as codons
 
 Codon = Tuple[Nucleotide, Nucleotide, Nucleotide]
+
+
 Gene = List[Codon]
+
 
 gene_str = "ACGTGGCTCTCTAACGTACGTACGTACGGGGTTTATATATACCCTAGGACTCCCTTT"
 
@@ -23,7 +27,7 @@ gene_str = "ACGTGGCTCTCTAACGTACGTACGTACGGGGTTTATATATACCCTAGGACTCCCTTT"
 # genie in abottle
 # scatman
 # all star smash mouth
-#california love
+# california love
 # somewhere over the rainbow
 # blue de daa bu dee
 # macarena
@@ -42,4 +46,7 @@ def string_to_gene(s):
 
 my_gene = string_to_gene(gene_str)
 
-print(my_gene)
+
+def get_gene():
+    return my_gene
+

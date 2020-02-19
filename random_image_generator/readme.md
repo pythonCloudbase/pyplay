@@ -6,4 +6,4 @@ To do :
 1. customise the dimension
 2. randomize the pattern
 
-![](created_strip.png)
+sample - ![](created_strip.png) :smiley

@@ -1,4 +1,4 @@
-# Random color generator in python
+# Random profile image/ icon generator in python
 
 `python random_strip_gen.py` will create a random image of 10 strips of 10 x 10 dimensions
 
@@ -8,8 +8,11 @@ To do :
 
 sample - ![](created_strip.png)  (yes ! thats a randomly generated icon.)
 
-`python gavatar.py` will create a random github like 420x420 icon/
+`python gavatar.py` will create a random github like 420x420 profile image/
 sample - ![](gavatar.png)
+
+To do:
+1. Make it more githuby like :ballot_box:
 
 
 

@@ -1,4 +1,5 @@
 import pygame
+import numpy as np
 import time
 import random
 
@@ -16,6 +17,7 @@ red = (255,0,0)
 white = (255,255,255)
 black = (0,0,0)
 red = (255,0,0)
+
 
 
 
@@ -38,6 +40,7 @@ def message(msg, color):
 
 
 def gameloop():
+
     game_over = False
     game_close = False
 
@@ -50,6 +53,7 @@ def gameloop():
     foodx = round(random.randrange(0, dis_width - snake_block) / 10.0)* 10.0
     foody = round(random.randrange(0, dis_width - snake_block )  /10.0) * 10.0
     
+
     while(not game_over):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -81,13 +85,17 @@ def gameloop():
         y1 += y1_change
         print(y1_change)
         dis.fill(white)
-        pygame.draw.rect(dis, blue, [foodx, foody])
-        pygame.draw.rect(dis, black, [x1, y1, 10, 10])
+
+        # print(dis, blue, [foodx, foody])
+        # pygame.draw.rect(dis, blue, [foodx, foody])
+        # pygame.draw.rect(dis, black, [x1, y1, 10, 10])
 
         pygame.display.update()
 
         clock.tick(snake_speed)
 
+
+gameloop()
 
 message("You Lost", red)
 pygame.display.update()

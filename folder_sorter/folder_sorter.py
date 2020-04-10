@@ -5,10 +5,12 @@ import sys
 if(len(sys.argv)>1):
     folder_dir = sys.argv[1]
 else :
-    folder_dir = './arrange'
+    #folder_dir = './arrange'
+    folder_dir = 'This PC\\ASHWIN NEW\\Internal shared storage\\Download'
 
 
 for _, _, files in os.walk(folder_dir):
+    print("here")
     print(files)
     file_type = []
 

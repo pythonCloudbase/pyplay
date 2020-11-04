@@ -1,3 +1,4 @@
 input_to_parser/*
 combined_without_subject.json
-combined_json.json
+combined.json
+__pycache__

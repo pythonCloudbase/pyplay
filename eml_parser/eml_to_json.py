@@ -2,7 +2,7 @@ import datetime
 import json
 import eml_parser
 
-
+# format of parser
 # { "class": "TreeModel",
 #   "nodeDataArray": [ 
 # {"key":0, "text":"NA\n", "loc":"0 0"},
@@ -34,7 +34,7 @@ def convert_for_gojs(from_dict, to_dict):
 
     substring += '{"key":' + str(counter)+'1, "parent":' + str(counter) +', "text":"'
     substring += from_dict[from_key]
-    substring += '", "brush":"darkseagreen", "dir":"left"},'
+    substring += '", "brush":"coral", "dir":"left"},'
 
     converted_json += substring
 
@@ -42,6 +42,7 @@ def convert_for_gojs(from_dict, to_dict):
     counter += 1
 
   for to_key in to_dict.keys():
+sudo apt install libgtk2.0-0 libsoup2.4-1 libarchive13 libpng16-16 libgconf-2-4 lib32stdc++6 libcanberra-gtk-module
 
     substring = '{"key":' + str(counter) +', "parent":0, "text":"'
  

@@ -13,6 +13,15 @@
   .green {
     background-color: #409147 !important;
   }
+
+  .purple {
+    background-color: #8209a0 !important;
+  }
+
+  .red {
+    background-color: #e2470a !important;
+  }
+  
   
   body {
     margin: 0;

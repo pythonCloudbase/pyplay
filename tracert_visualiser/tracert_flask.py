@@ -3,17 +3,21 @@ import os
 import urllib.parse
 import requests
 import sys
-from shapely.geometry import Point
-import geopandas as gpd
-from geopandas import GeoDataFrame
-import geopandas
-import geoplot
-import matplotlib.pyplot as plt
-import pandas as pd
 
+from flask import Flask, render_template, request
+app = Flask(__name__)
 
 f1 = open('google_com.txt', 'r+')
 text  = f1.readlines()
+
+@app.route('/input')
+def display():
+    print(request.args.get('filename'))
+    if 'index'== request.args.get('filename'):
+        myfilename = request.args.get('filename')
+        return render_template('index.html')
+    else :
+        return "no input file specified"
 
 def get_ip(text):
     ip_addresses = []
@@ -89,42 +93,13 @@ def get_lat_long(ip_add_dict):
         latlong.append(ll)
     return latlong
 
-def geopanda_vis(latlong):
-    lats= []
-    longs = []
+if __name__=='__main__':
 
-    for i in latlong:
-        lats.append(float(i['lat']))
-        longs.append(float(i['lon']))
-        
+    ip_add_dict = enum_whois(get_ip(text))
+
+    latlong =  get_lat_long(ip_add_dict)
+    print(latlong)
     
-    geometry = [Point(x, y) for x, y in zip(longs, lats)]
-    gdf = GeoDataFrame(df, geometry=geometry)   
-
-    #this is a simple map that goes with geopandas
-    world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
-    gdf.plot(ax=world.plot(figsize=(10, 6)), marker='o', color='red', markersize=15)
-    plt.savefig('w.jpg')
-
-def geopandas_map():
-    world = geopandas.read_file(
-        geopandas.datasets.get_path('naturalearth_lowres')
-    )
-    boroughs = geopandas.read_file(
-        geoplot.datasets.get_path('nyc_boroughs')
-    )
-    collisions = geopandas.read_file(
-        geoplot.datasets.get_path('nyc_injurious_collisions')
-    )
-    geoplot.polyplot(world, figsize=(8, 4))
-    plt.savefig('world.jpg')
+    app.run(host='0.0.0.0', debug=True, port=3134)
 
 
-ip_add_dict = enum_whois(get_ip(text))
-
-latlong =  get_lat_long(ip_add_dict)
-print(latlong)
-
-#geopanda_vis(get_lat_long(ip_add_dict))
-
-#geopandas_map()

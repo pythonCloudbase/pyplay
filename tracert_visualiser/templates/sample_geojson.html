@@ -1,0 +1,198 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <title>My title</title>
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+ integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+ crossorigin=""></script>
+
+ <style>
+
+    input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    }
+
+    input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+    background-color: #45a049;
+    }
+
+    div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    }
+    #map{
+      
+      background-color:#ccc;
+      /* position:fixed; */
+      width:100%;
+      height:100%;
+      top:0;
+      left:0;
+      cursor:pointer;
+    }
+    
+    .bargrafik{
+      
+    }
+    
+    .bargrafik .leftval{
+      color:orange;
+      background-color:orange;
+      width:5px;
+    }
+    
+    .bargrafik .rightval{
+      color:yellow;
+      background-color:yellow;
+      width:5px;
+    }
+    
+    .saritext {
+      color:yellow;
+      font-size:10px;
+    }
+    
+    .yesiltext {
+      color:orange;
+      font-size:10px;
+    }
+    </style>
+    
+</head>
+
+<body>
+
+<form action="">
+    <label for="fip">input your net :</label>
+    <input type="text" id="fip" name="ip" placeholder="Enter ip">
+    <input id = "fbutton" type="submit" value="PING" onclick="myFunction()">
+</form>
+
+<div id="my-data" data-name="{{ value }}">
+<div  id="map"></div>
+
+<script>
+var map
+var larr = []
+
+function myFunction(){
+
+    document.getElementById("fbutton").disabled = true; 
+    console.log('run traceroute for : ', document.getElementById('fip').value)
+    ip = document.getElementById('fip').value
+    $.post("trace",{ 'ip' : ip}, function(data){
+       
+    }). done(function(data){
+
+        console.log(data['data'])
+        larr = data['data']
+        // console.log(document.getElementById('my-data').attributes['data-name'].value)
+        updateGeojson()
+    })
+    event.preventDefault()
+}
+
+
+function updateGeojson(){
+    document.getElementById("fbutton").disabled = false;
+    // var larr = []
+    
+    // larr = input_data
+    // for( i  of input_data)
+    //     {
+    //         if(i != ""){
+    //             larr.push(i)
+    //         }
+                
+    //     }
+
+    var centerLng = 31.633004916540266;
+    var centerLat = -7.997800602958748;
+    // var map = L.map('map').setView([centerLng,centerLat], 15);
+    var buffer = 0.04;
+    var collection = [];
+    var geojsonlist = [];
+
+   map = L.map('map', {
+                minZoom: 2,
+                maxZoom: 1000,
+            }).setView([0, 0], 0);
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1, 
+            accessToken: 'pk.eyJ1IjoiZGVzcGlkZXJoYXJucyIsImEiOiJjazZ1ZGV1bWkwODYxM21yamRmaW5ubTkzIn0.J5DORVCAmeMCJTLNAuNdEg'
+            }).addTo(map);
+
+    var geojson = {
+        "type": "FeatureCollection",
+        "name": "test",
+        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        "features": []
+    }
+
+    for (let i=0; i <larr.length; i+=2){
+        console.log("For ", larr[i], larr[i+1])
+        smallgeo = { "type": "Feature", "properties": { "id": i, "nom": "JAMAA EL FNA", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ larr[i], larr[i+1] ] } }
+        geojson["features"].push(smallgeo)
+    }
+
+    console.log(geojson)
+
+    // var geojson = {
+    // "type": "FeatureCollection",
+    // "name": "test",
+    // "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+    // "features": [
+    // { "type": "Feature", "properties": { "id": 0, "nom": "JAMAA EL FNA", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ -7.991506070410076, 31.624380871588261 ] } },
+    // { "type": "Feature", "properties": { "id": 1, "nom": "KOUTOUBIA", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ -7.993921192850516, 31.62551706188404 ] } },
+    // { "type": "Feature", "properties": { "id": 2, "nom": "HOTE DE VILLE", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ -7.997800602958748, 31.627492814514493 ] } },
+    // { "type": "Feature", "properties": { "id": 3, "nom": "R.P BERDII", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ -8.003733858117105, 31.630010280990067 ] } },
+    // { "type": "Feature", "properties": { "id": 4, "nom": "GRAND POSTE", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ -8.009040991276375, 31.633004916540266 ] } },
+    // { "type": "Feature", "properties": { "id": 5, "nom": "CAREE EDEN", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ -8.011327830139466, 31.634311225216251 ] } },
+    // { "type": "Feature", "properties": { "id": 6, "nom": "PL ABDELMOUMEN", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ -8.01491129321975, 31.63631744889955 ] } },
+    // { "type": "Feature", "properties": { "id": 7, "nom": "PLACE D ARMES", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ -8.017961238223567, 31.63862644522986 ] } },
+    // { "type": "Feature", "properties": { "id": 8, "nom": "FST", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ -8.019317263334594, 31.64420691382918 ] } }]};
+
+    var lineCoordinate = [];
+
+    for(var i in geojson.features){
+    var pointJson = geojson.features[i];
+    var coord = pointJson.geometry.coordinates;
+    L.marker([coord[0],coord[1]]).addTo(map);
+    lineCoordinate.push([coord[0],coord[1]]);
+    }
+
+    L.polyline(lineCoordinate, {color: 'red'}).addTo(map);
+
+}
+
+
+</script>
+</body>
+</html>

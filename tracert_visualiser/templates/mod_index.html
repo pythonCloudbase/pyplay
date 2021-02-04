@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <title>My title</title>
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+ integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+ crossorigin=""></script>
+<style>
+    #mapid { height: 640px; }
+</style>
+</head>
+
+<body>
+    
+    <p>Flask can display HTML pages
+    </p>
+    <div id="my-data" data-name="{{ value }}">
+    <div id="mapid"></div>
+
+    <script>
+
+        var larr = []
+
+        for( i  of document.getElementById('my-data').attributes['data-name'].value.split('[')[1].split(','))
+        {
+            if(i != ""){
+                larr.push(i.split("'")[1])
+            }
+            
+        }
+
+        var geojsonFeature = {
+            "type": "Feature",
+            "properties": {
+                "name": "Coors Field",
+                "amenity": "Baseball Stadium",
+                "popupContent": "This is where the Rockies play!"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-104.99404, 39.75621]
+            }
+        };
+
+        console.log(larr)
+
+        var mymap = L.map('mapid', {
+            minZoom: 1,
+            maxZoom: 1,
+        }).setView([0, 0], 0);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiZGVzcGlkZXJoYXJucyIsImEiOiJjazZ1ZGV1bWkwODYxM21yamRmaW5ubTkzIn0.J5DORVCAmeMCJTLNAuNdEg'
+        }).addTo(mymap);
+
+        geojsonFeatures = 
+
+        for (let i=0; i <larr.length; i+=2){
+
+            var geojsonFeature = {
+                "type": "Feature",
+                "properties": {
+                    "name": "Coors Field",
+                    "amenity": "Baseball Stadium",
+                    "popupContent": "This is where the Rockies play!"
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [larr[i], larr[i+1]]
+                }
+            };
+
+            geojsonFeatures.push(geojsonFeature)
+
+
+            var circle = L.circle([larr[i], larr[i+1]], {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5,
+            radius: 5000
+            }).addTo(mymap);
+            
+            circle.bindPopup("heres a popup for you").openPopup();
+        }
+        
+        var myStyle = {
+            "color": "#ff7800",
+            "weight": 5,
+            "opacity": 0.65
+        };
+
+        L.geoJson(geojsonFeatures, {style: myStyle}).addTo(mymap)
+
+        function onMapClick(e) {
+            popup
+                .setLatLng(e.latlng)
+                .setContent("You clicked the map at " + e.latlng.toString())
+                .openOn(mymap);
+        }
+        data = L.geoJson
+        function connectDots(data) {
+            var features = c = [], i;
+
+            for (i = 0; i < features.length; i += 1) {
+                feature = features[i];
+                // Make sure this feature is a point.
+                if (feature.geometry === "Point") {
+                    c.push(feature.geometry.coordinates);
+                }
+            }
+            return c;
+        }
+
+        L.polyline(connectDots(data)).addTo(mymap);
+
+        mymap.on('click', onMapClick);
+    </script>
+</body>
+
+</html>

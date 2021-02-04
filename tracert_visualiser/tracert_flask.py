@@ -4,24 +4,74 @@ import urllib.parse
 import requests
 import sys
 
+from subprocess import Popen, PIPE
+
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
-f1 = open('google_com.txt', 'r+')
-text  = f1.readlines()
+# if using text as tracert input
+
+# f1 = open('google_com.txt', 'r+')
+# text  = f1.readlines()
+
+# print(text)
+larr = []
 
 @app.route('/input')
 def display():
-    print(request.args.get('filename'))
-    if 'index'== request.args.get('filename'):
-        myfilename = request.args.get('filename')
-        return render_template('index.html')
-    else :
-        return "no input file specified"
+
+    # text  =  run_tracert('facebook.com')
+
+    # ip_add_dict = enum_whois(get_ip(text))
+
+    # latlong =  get_lat_long(ip_add_dict)
+    # larr = []
+    # for i in latlong:
+    #     larr.append(i['lat'])
+    #     larr.append(i['lon'])
+
+    return render_template('sample_geojson.html', value=larr)
+
+@app.route('/trace', methods=['POST'])
+def traceDisplay():
+    data = request.get_data().decode("utf-8")
+    
+    print(data)
+    text  =  run_tracert(data.split("=")[1])
+
+    ip_add_dict = enum_whois(get_ip(text))
+
+    latlong =  get_lat_long(ip_add_dict)
+
+    larr = []
+    for i in latlong:
+        larr.append(i['lat'])
+        larr.append(i['lon'])
+    
+    print(larr)
+
+    return {'data': larr}
+    # return render_template('sample_geojson.html', value=larr)
+
+
+def run_tracert(host):
+    p = Popen(['traceroute', host], stdout=PIPE)
+    
+    #lines = p.stdout.readlines()
+    lines = []
+    while True:
+        line = p.stdout.readline().decode("utf-8")
+        if not line:
+            break
+        lines.append(str(line))
+ 
+    return lines
+       
 
 def get_ip(text):
     ip_addresses = []
     for i, element in enumerate(text):
+        i = str(i)
         if (i == 0):
             pass
         elif (element.split()[1] != '*'):
@@ -29,7 +79,8 @@ def get_ip(text):
     return ip_addresses
 
 def enum_whois(ips):
-    p_addresses = {}
+    # I assume we are in india
+    p_addresses = {'0.0.0.0':'IN'}
     for ip in ips:
         # print('for: ', ip)
         try:
@@ -95,10 +146,12 @@ def get_lat_long(ip_add_dict):
 
 if __name__=='__main__':
 
-    ip_add_dict = enum_whois(get_ip(text))
+    # text  =  run_tracert('facebook.com')
 
-    latlong =  get_lat_long(ip_add_dict)
-    print(latlong)
+    # ip_add_dict = enum_whois(get_ip(text))
+
+    # latlong =  get_lat_long(ip_add_dict)
+    # print(latlong)
     
     app.run(host='0.0.0.0', debug=True, port=3134)
 

@@ -3,7 +3,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
-    <title>My title</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Heebo&display=swap" rel="stylesheet"> 
+
+    <title>TerraTrace</title>
      <!-- Make sure you put this AFTER Leaflet's CSS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>  
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
@@ -20,17 +24,19 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    font-family: 'Heebo', sans-serif;
     }
 
     input[type=submit] {
     width: 100%;
-    background-color: #4CAF50;
+    background-color: #8B008B;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-family: 'Heebo', sans-serif;
     }
 
     input[type=submit]:hover {
@@ -51,6 +57,7 @@
       top:0;
       left:0;
       cursor:pointer;
+      
     }
     
     .bargrafik{
@@ -78,28 +85,65 @@
       color:orange;
       font-size:10px;
     }
+
+    #headtext {
+      padding: 60px;
+      text-align: center;
+      background: #8B008B;
+      color: white;
+      font-size: 48px;
+      font-family: 'Fredoka One', cursive;
+    }
     </style>
     
 </head>
 
 <body>
-
+<h1 id="headtext">TerraTrace</h1>
 <form action="">
-    <label for="fip">input your net :</label>
+    <!-- <label for="fip">inp</label> -->
     <input type="text" id="fip" name="ip" placeholder="Enter ip">
-    <input id = "fbutton" type="submit" value="PING" onclick="myFunction()">
+    <input id = "fbutton" type="submit" value="Ping" onclick="myFunction()">
 </form>
 
 <div id="my-data" data-name="{{ value }}">
 <div  id="map"></div>
 
 <script>
+
 var map
+
+map = L.map('map', {
+                minZoom: 2,
+                maxZoom: 1000,
+            }).setView([0, 0], 0);
+
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1, 
+            accessToken: 'pk.eyJ1IjoiZGVzcGlkZXJoYXJucyIsImEiOiJjazZ1ZGV1bWkwODYxM21yamRmaW5ubTkzIn0.J5DORVCAmeMCJTLNAuNdEg'
+            }).addTo(map);            
+
 var larr = []
 
-function myFunction(){
+var layerGroup
 
+var geojson = {
+        "type": "FeatureCollection",
+        "name": "test",
+        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        "features": []
+    }
+
+
+function myFunction(){
+    larr = []
+    document.getElementById("fbutton").style.backgroundColor = "#A9A9A9"
     document.getElementById("fbutton").disabled = true; 
+    document.getElementById("fbutton").value = "Updating map. Check the console for more info."
     console.log('run traceroute for : ', document.getElementById('fip').value)
     ip = document.getElementById('fip').value
     $.post("trace",{ 'ip' : ip}, function(data){
@@ -116,7 +160,7 @@ function myFunction(){
 
 
 function updateGeojson(){
-    document.getElementById("fbutton").disabled = false;
+    
     // var larr = []
     
     // larr = input_data
@@ -126,39 +170,22 @@ function updateGeojson(){
     //             larr.push(i)
     //         }
                 
-    //     }
+    // //     }
 
-    var centerLng = 31.633004916540266;
-    var centerLat = -7.997800602958748;
-    // var map = L.map('map').setView([centerLng,centerLat], 15);
-    var buffer = 0.04;
-    var collection = [];
-    var geojsonlist = [];
+    // var centerLng = 31.633004916540266;
+    // var centerLat = -7.997800602958748;
+    // // var map = L.map('map').setView([centerLng,centerLat], 15);
+    // var buffer = 0.04;
+    // var collection = [];
+  
 
-   map = L.map('map', {
-                minZoom: 2,
-                maxZoom: 1000,
-            }).setView([0, 0], 0);
+   geojson['features'] = []
 
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1, 
-            accessToken: 'pk.eyJ1IjoiZGVzcGlkZXJoYXJucyIsImEiOiJjazZ1ZGV1bWkwODYxM21yamRmaW5ubTkzIn0.J5DORVCAmeMCJTLNAuNdEg'
-            }).addTo(map);
+    console.log()
 
-    var geojson = {
-        "type": "FeatureCollection",
-        "name": "test",
-        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-        "features": []
-    }
-
-    for (let i=0; i <larr.length; i+=2){
+    for (let i=0; i <larr.length; i+=3){
         console.log("For ", larr[i], larr[i+1])
-        smallgeo = { "type": "Feature", "properties": { "id": i, "nom": "JAMAA EL FNA", "ligne": "L1", "ville": "MARRAKECH", "direction": "A" }, "geometry": { "type": "Point", "coordinates": [ larr[i], larr[i+1] ] } }
+        smallgeo = { "type": "Feature", "properties": { "id": i, "nom": larr[i+2]}, "geometry": { "type": "Point", "coordinates": [ larr[i], larr[i+1] ] } }
         geojson["features"].push(smallgeo)
     }
 
@@ -184,14 +211,19 @@ function updateGeojson(){
     for(var i in geojson.features){
     var pointJson = geojson.features[i];
     var coord = pointJson.geometry.coordinates;
-    L.marker([coord[0],coord[1]]).addTo(map);
+    console.log("pointjson file: ", pointJson, pointJson.properties.nom)
+    L.marker([coord[0],coord[1]]).bindPopup('<h1> hop : '+(pointJson.properties.id/3) + '</h1><p> place : '+pointJson.properties.nom+'</p>').addTo(map);
     lineCoordinate.push([coord[0],coord[1]]);
     }
+    
 
     L.polyline(lineCoordinate, {color: 'red'}).addTo(map);
 
-}
 
+    document.getElementById("fbutton").disabled = false;
+    document.getElementById("fbutton").style.backgroundColor = "#8B008B"
+    document.getElementById("fbutton").value = "Ping"
+}
 
 </script>
 </body>

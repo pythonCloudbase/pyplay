@@ -1,0 +1,2 @@
+The current project directory is  C:\Users\HP\pyplay\marine_traffic_parser\scrape_data
+None

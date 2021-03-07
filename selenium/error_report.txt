@@ -1,0 +1,50 @@
+============================= test session starts =============================
+platform win32 -- Python 3.7.4, pytest-5.2.1, py-1.8.0, pluggy-0.13.0 -- Z:\Installs\anaconda\envs\tf-gpu\python.exe
+cachedir: .pytest_cache
+rootdir: Z:\codeplay\pyplay\selenium
+plugins: arraydiff-0.3, doctestplus-0.4.0, openfiles-0.4.0, remotedata-0.3.2
+collecting ... collected 1 item
+
+sample.py::test_lambdatest_todo_app FAILED
+
+================================== FAILURES ===================================
+__________________________ test_lambdatest_todo_app ___________________________
+
+    def test_lambdatest_todo_app():
+    
+        options = webdriver.ChromeOptions()
+        options.binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe"
+        # chrome_driver_binary = "C:\Program Files\BraveSoftware\Brave-Browser\Application"
+    
+        # chrome_driver = webdriver.Chrome(chrome_driver_binary, chrome_options=options)
+    
+    
+>       chrome_driver = webdriver.Chrome(executable_path="C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe", chrome_options=options, service_args=['--verbose', '--log-path=/tmp/chromedriver.log'])
+
+sample.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+Z:\Installs\anaconda\envs\tf-gpu\lib\site-packages\selenium\webdriver\chrome\webdriver.py:73: in __init__
+    self.service.start()
+Z:\Installs\anaconda\envs\tf-gpu\lib\site-packages\selenium\webdriver\common\service.py:98: in start
+    self.assert_process_still_running()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.chrome.service.Service object at 0x000001B2E67A8D48>
+
+    def assert_process_still_running(self):
+        return_code = self.process.poll()
+        if return_code is not None:
+            raise WebDriverException(
+                'Service %s unexpectedly exited. Status code was: %s'
+>               % (self.path, return_code)
+            )
+E           selenium.common.exceptions.WebDriverException: Message: Service C:\Program Files\Google\Chrome\Application\chromedriver.exe unexpectedly exited. Status code was: 1
+
+Z:\Installs\anaconda\envs\tf-gpu\lib\site-packages\selenium\webdriver\common\service.py:111: WebDriverException
+============================== warnings summary ===============================
+sample.py::test_lambdatest_todo_app
+  Z:\codeplay\pyplay\selenium\sample.py:19: DeprecationWarning: use options instead of chrome_options
+    chrome_driver = webdriver.Chrome(executable_path="C:\\Program Files\\Google\\Chrome\\Application\\chromedriver.exe", chrome_options=options, service_args=['--verbose', '--log-path=/tmp/chromedriver.log'])
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+======================== 1 failed, 1 warnings in 3.22s ========================

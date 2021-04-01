@@ -1,0 +1,7 @@
+README.md
+setup.py
+allplots.egg-info/PKG-INFO
+allplots.egg-info/SOURCES.txt
+allplots.egg-info/dependency_links.txt
+allplots.egg-info/requires.txt
+allplots.egg-info/top_level.txt

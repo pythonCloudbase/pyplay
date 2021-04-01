@@ -1,0 +1,1 @@
+sed '/Link/d' < "$1" > file-without-links.pdf

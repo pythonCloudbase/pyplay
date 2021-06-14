@@ -16,7 +16,9 @@ opts.headless=True
 driver = webdriver.Chrome(executable_path="C:\\Users\\HP\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe")
 # driver = webdriver.Chrome(executable_path= "C:\\Users\\HP\\.wdm\\drivers\\chromedriver\\win32\\91.0.4472.101" )
 search_url = "https://www.google.com/search?q={q}&tbm=isch&tbs=sur%3Afc&hl=en&ved=0CAIQpwVqFwoTCKCa1c6s4-oCFQAAAAAdAAAAABAC&biw=1251&bih=568"
-driver.get(search_url.format(q='Car'))
+driver.get(search_url.format(q='code'))
+
+host = driver.title
 
 print(driver.title)
 print(driver.current_url)
@@ -34,8 +36,10 @@ time.sleep(1)
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 time.sleep(1)
 
-
-
+try:
+    driver.save_screenshot("screenshots/{}.png".format(host))
+except Exception as e:
+    print("This is : " , e)
 
 driver.close()
 

@@ -1,10 +1,13 @@
+
 try:
     import winsound
 except ImportError:
     import os
     def playsound(frequency,duration):
         #apt-get install beep
-        os.system('beep -f %s -l %s' % (frequency,duration))
+        #os.system('beep -f %s -l %s' % (frequency,duration))
+        #install sox to use this
+        os.system('play -nq -t alsa synth {} sine {}'.format(duration, frequency))
 else:
     def playsound(frequency,duration):
         winsound.Beep(frequency,duration)
@@ -43,7 +46,9 @@ print(output_text)
 
 for i in output_text:
     if (i=='.'):
-        playsound(600,100)
+        print(i)
+        playsound(600,1000)
     else :
-        playsound(500,200)
+        print(i)
+        playsound(500,2000)
     time.sleep(0.1)
